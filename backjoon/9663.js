@@ -43,3 +43,46 @@ function solution(input) {
 }
 
 console.log(solution(input))
+
+function solution() {
+  const N = Number(input[0])
+  const cols = [Array.from({ length: N }, () => -1)]
+  let answer = 0
+  bt(0)
+
+  return answer
+
+  function bt(row) {
+    if (row === N) {
+      answer += 1
+      return
+    }
+
+    for (let i = 0; i < N; i++) {
+      let possible = true
+      for (let t = 0; t < row; t++) {
+        if (attackable(row, i, t, cols[t])) {
+          possible = false
+          break
+        }
+      }
+
+      if (possible) {
+        cols[row] = i
+        bt(row + 1)
+        cols[row] = -1
+      }
+    }
+  }
+
+  function attackable(r1, c1, r2, c2) {
+    if (c1 === c2) return true
+    if (r1 + c1 === r2 + c2) return true
+    if (r1 - c1 === r2 - c2) return true
+    return false
+  }
+
+  return answer
+}
+
+console.log(solution())
