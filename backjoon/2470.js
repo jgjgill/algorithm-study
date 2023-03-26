@@ -51,4 +51,32 @@ function solution() {
   }
 }
 
+function solution() {
+  const N = Number(input[0])
+  const list = input[1].split(' ').map(Number)
+
+  list.sort((a, b) => a - b)
+
+  let left = 0
+  let right = N - 1
+  let best_sum = Infinity
+  let v1 = 0
+  let v2 = 0
+
+  while(left < right) {
+    let sum = list[right] + list[left]
+
+    if (Math.abs(sum) < best_sum) {
+      best_sum = Math.abs(sum)
+      v1 = list[left]
+      v2 = list[right]
+    }
+
+    if (sum > 0) right -= 1
+    else left += 1
+  }
+
+  return `${v1} ${v2}`
+}
+
 console.log(solution())
