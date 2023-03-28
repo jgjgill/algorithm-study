@@ -75,3 +75,51 @@ function solution(input) {
 }
 
 console.log(solution(input))
+
+function solution() {
+  const T = Number(input.shift())
+  const dirs = [
+    [1, 0],
+    [-1, 0],
+    [0, 1],
+    [0, -1],
+  ]
+
+  for (let i = 0; i < T; i++) {
+    const [M, N, K] = input.shift().split(" ").map(Number)
+    const board = Array.from({ length: M }, () => new Array(N).fill(0))
+    let count = 0
+    
+    for (let t = 0; t < K; t++) {
+      const [x, y] = input.shift().split(" ").map(Number)
+      board[x][y] = 1
+    }
+
+    for (let row = 0; row < M; row++) {
+      for (let col = 0; col < N; col++) {
+        if (board[row][col] === 0) continue
+        dfs(board, row, col, M, N)
+        count += 1
+      }
+    }
+
+    console.log(count)
+  }
+
+  function dfs(board, row, col, M, N) {
+    board[row][col] = 0
+
+    for (const dir of dirs) {
+      const injectX = row + dir[0]
+      const injectY = col + dir[1]
+
+      if (injectX < 0 || injectY < 0) continue
+      if (injectX >= M || injectY >= N) continue
+      if (board[injectX][injectY] === 0) continue
+
+      dfs(board, injectX, injectY, M, N)
+    }
+  }
+}
+
+solution()
