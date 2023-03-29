@@ -62,3 +62,55 @@ function solution(input) {
 }
 
 console.log(solution(input))
+
+function solution() {
+  const [N, M] = input[0].split(" ").map(Number)
+  const board = Array.from({ length: N }, () => [])
+  const check = Array.from({ length: N }, () => Array(M).fill(-1))
+  const dirs = [
+    [1, 0],
+    [-1, 0],
+    [0, 1],
+    [0, -1],
+  ]
+
+  for (let i = 0; i < N; i++) {
+    const temp = input[i + 1].split("").map(Number)
+    for (let t = 0; t < M; t++) {
+      board[i][t] = temp[t]
+    }
+  }
+  bfs()
+
+  return check[N - 1][M - 1]
+
+  function bfs() {
+    const queue = []
+    queue.push(0)
+    queue.push(0)
+    check[0][0] = 1
+    let index = 0
+
+    while (index < queue.length) {
+      const x = queue[index]
+      const y = queue[index + 1]
+      index += 2
+
+      for (const dir of dirs) {
+        const injectX = x + dir[0]
+        const injectY = y + dir[1]
+
+        if (injectX < 0 || injectY < 0) continue
+        if (injectX >= N || injectY >= M) continue
+        if (check[injectX][injectY] !== -1) continue
+        if (board[injectX][injectY] === 0) continue
+
+        queue.push(injectX)
+        queue.push(injectY)
+        check[injectX][injectY] = check[x][y] + 1
+      }
+    }
+  }
+}
+
+console.log(solution())
