@@ -30,3 +30,32 @@ function solution(keymap, targets) {
 
   return answer
 }
+
+function solution(keymap, targets) {
+  const check = {}
+  const answer = []
+
+  for (let key_arr of keymap) {
+    key_arr.split("").forEach((key, index) => {
+      if (!(key in check)) check[key] = index + 1
+      else check[key] = Math.min(check[key], index + 1)
+    })
+  }
+
+  for (const target of targets) {
+    let count = 0
+
+    for (const cur_target of target) {
+      if (!check[cur_target]) {
+        count = -1
+        break
+      }
+
+      count += check[cur_target]
+    }
+
+    answer.push(count)
+  }
+
+  return answer
+}
