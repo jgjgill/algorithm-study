@@ -7,7 +7,7 @@ function solution(s) {
   let firstCount = 0
   let restCount = 0
 
-  s.split('').forEach((item) => {
+  s.split("").forEach((item) => {
     if (first === undefined) {
       first = item
       firstCount = 1
@@ -29,4 +29,28 @@ function solution(s) {
   }
 
   return first === undefined ? answer : answer + 1
+}
+
+function solution(s) {
+  let result = 0
+  let x = ""
+  let rest = ""
+
+  for (const cur of s) {
+    if (x === "") {
+      x += cur
+      continue
+    }
+
+    x[0] === cur ? (x += cur) : (rest += cur)
+
+    if (x.length === rest.length) {
+      result += 1
+      x = ""
+      rest = ""
+    }
+  }
+  if (x !== "" || rest !== "") result += 1
+
+  return result
 }
