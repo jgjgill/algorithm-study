@@ -44,3 +44,24 @@ function solution(s, skip, index) {
     return String.fromCharCode(char)
   }
 }
+
+function solution(s, skip, index) {
+  skip = skip.split("").map((item) => item.charCodeAt())
+  let result = ""
+
+  for (const char of s) {
+    let cur = char.charCodeAt()
+    let check = index
+
+    while (check !== 0) {
+      if (cur + 1 === 123) cur = 97
+      else cur += 1
+
+      if (!skip.includes(cur)) check -= 1
+    }
+
+    result += String.fromCharCode(cur)
+  }
+
+  return result
+}
