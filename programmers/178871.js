@@ -26,3 +26,25 @@ function solution(players, callings) {
 
   return answer
 }
+
+function solution(players, callings) {
+  const index_value = {}
+  const name_value = {}
+
+  players.forEach((player, index) => {
+    index_value[player] = index
+    name_value[index] = player
+  })
+
+  for (const calling of callings) {
+    const calling_index = index_value[calling]
+    const prev_name = name_value[calling_index - 1]
+
+    index_value[calling] -= 1
+    index_value[prev_name] += 1
+    name_value[calling_index - 1] = calling
+    name_value[calling_index] = prev_name
+  }
+
+  return Object.values(name_value)
+}
