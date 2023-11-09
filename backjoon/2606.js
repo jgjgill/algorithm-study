@@ -47,3 +47,34 @@ function solution() {
 }
 
 console.log(solution());
+
+function solution() {
+  const computerN = Number(input[0]);
+  const networkN = Number(input[1]);
+  const check = Array.from({ length: computerN + 1 }, () => false);
+  const graph = Array.from({ length: computerN + 1 }, () => []);
+
+  for (let i = 2; i < networkN + 2; i++) {
+    const viruses = input[i].split(" ").map(Number);
+
+    graph[viruses[0]].push(viruses[1]);
+    graph[viruses[1]].push(viruses[0]);
+  }
+
+  dfs(1);
+
+  function dfs(index) {
+    for (const computerCheck of graph[index]) {
+      if (check[computerCheck] || computerCheck === 1) {
+        continue;
+      }
+
+      check[computerCheck] = true;
+      dfs(computerCheck);
+    }
+  }
+
+  return check.filter(Boolean).length;
+}
+
+console.log(solution());
