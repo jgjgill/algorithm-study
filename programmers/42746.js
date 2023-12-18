@@ -29,3 +29,11 @@ function solution(numbers) {
 
   return answer[0] === "0" ? "0" : answer.join("");
 }
+
+function solution(numbers) {
+  numbers.sort(
+    (a, b) => Number(String(b) + String(a)) - Number(String(a) + String(b))
+  );
+
+  return numbers[0] === 0 ? "0" : numbers.reduce((acc, cur) => acc + cur, "");
+}

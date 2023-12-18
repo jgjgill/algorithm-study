@@ -17,3 +17,24 @@ function solution(numbers, target) {
 
   return count;
 }
+
+function solution(numbers, target) {
+  let answer = 0;
+
+  dfs(0, 0);
+
+  function dfs(index, count) {
+    if (index === numbers.length) {
+      if (count === target) {
+        answer += 1;
+      }
+
+      return;
+    }
+
+    dfs(index + 1, count + numbers[index]);
+    dfs(index + 1, count - numbers[index]);
+  }
+
+  return answer;
+}
