@@ -20,3 +20,24 @@ function solution(prices) {
 
   return answer;
 }
+
+function solution(prices) {
+  const answer = [];
+  const stack = [];
+
+  for (let i = 0; i < prices.length; i++) {
+    while (stack.length !== 0 && stack.at(-1)[0] > prices[i]) {
+      const [_, index] = stack.pop();
+      answer[index] = i - index;
+    }
+
+    stack.push([prices[i], i]);
+  }
+
+  while (stack.length !== 0) {
+    const [_, index] = stack.pop();
+    answer[index] = prices.length - 1 - index;
+  }
+
+  return answer;
+}
