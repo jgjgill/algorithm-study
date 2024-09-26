@@ -37,3 +37,4 @@ function solution(numbers) {
 
   return numbers[0] === 0 ? "0" : numbers.reduce((acc, cur) => acc + cur, "");
 }
+    
