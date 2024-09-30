@@ -38,3 +38,28 @@ function solution(numbers) {
 
   return answer.sort((a, b) => a[1] - b[1]).map((item) => item[0])
 }
+
+
+function solution(numbers) {
+  const stack = []
+  const answer = []
+
+  for (let i = 0; i < numbers.length; i++) {
+      const number = numbers[i]
+      
+      while (stack.length !== 0 && stack.at(-1)[0] < numbers[i]) {
+          const index = stack.pop()[1]
+          
+          answer[index] = numbers[i]
+      }
+      
+      stack.push([numbers[i], i])
+  }
+  
+  while(stack.length !== 0) {
+      const index = stack.pop()[1]
+      answer[index] = -1
+  }
+  
+  return answer
+}
