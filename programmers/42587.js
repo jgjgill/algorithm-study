@@ -100,5 +100,25 @@ function solution(priorities, location) {
     }
   }
 
-  return count;
+}
+
+
+function solution(priorities, location) {
+  const stack = []
+  const length = priorities.length
+  
+  priorities = priorities.map((priority, index) => [priority, index])
+  
+  while(stack.length !== length) {
+      stack.push(priorities.shift())
+      
+      for (let i = 0; i < priorities.length; i++) {
+          if (stack.at(-1)[0] < priorities[i][0]) {
+              priorities.push(stack.pop())
+              break
+          }
+      }
+  }
+  
+  return stack.findIndex((item) => item[1] === location) + 1;
 }
